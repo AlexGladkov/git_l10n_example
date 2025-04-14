@@ -49,10 +49,9 @@ print(greeting); // "Welcome to our app!"`
           <router-link to="/" class="logo">L10n SDK</router-link>
         </div>
         <div class="nav-right">
-          <router-link to="#features">Features</router-link>
           <router-link to="/documentation">Documentation</router-link>
-          <router-link to="#community">Community</router-link>
-          <router-link to="#blog">Blog</router-link>
+          <router-link to="/blog">Blog</router-link>
+          <router-link to="/community">Community</router-link>
           <button class="cta-button">Get Started</button>
         </div>
       </nav>
