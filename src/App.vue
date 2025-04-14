@@ -50,7 +50,7 @@ print(greeting); // "Welcome to our app!"`
         </div>
         <div class="nav-right">
           <router-link to="#features">Features</router-link>
-          <router-link to="#documentation">Documentation</router-link>
+          <router-link to="/documentation">Documentation</router-link>
           <router-link to="#community">Community</router-link>
           <router-link to="#blog">Blog</router-link>
           <button class="cta-button">Get Started</button>
@@ -58,90 +58,7 @@ print(greeting); // "Welcome to our app!"`
       </nav>
     </header>
 
-    <main>
-      <section class="hero">
-        <div class="hero-inner">
-          <div class="hero-content">
-            <h1>Mobile App Localization<br/>Made Simple</h1>
-            <p class="hero-subtitle">
-              The ultimate SDK for seamless mobile app localization. Support multiple languages, 
-              manage translations, and deliver a perfect user experience across the globe.
-            </p>
-            <div class="hero-buttons">
-              <button class="primary-button">Start Localizing</button>
-              <button class="secondary-button">View Documentation</button>
-            </div>
-          </div>
-          <div class="hero-image">
-            <div class="code-preview">
-              <pre><code>// Initialize the SDK
-L10n.initialize({
-  apiKey: 'your-api-key',
-  defaultLanguage: 'en'
-});
-
-// Use translations
-const greeting = L10n.t('welcome.message');
-console.log(greeting); // "Welcome!"</code></pre>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="features" class="features">
-        <div class="features-content">
-          <h2>Why Choose L10n SDK?</h2>
-          <div class="feature-grid">
-            <div class="feature-card">
-              <div class="feature-icon">📱</div>
-              <h3>Multi-platform Support</h3>
-              <p>Seamlessly integrate with iOS, Android, and cross-platform frameworks.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">⚡️</div>
-              <h3>Real-time Updates</h3>
-              <p>Update translations without app store submissions.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">🔄</div>
-              <h3>Smart Fallbacks</h3>
-              <p>Intelligent language fallback system for better user experience.</p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">📊</div>
-              <h3>Analytics</h3>
-              <p>Track translation usage and identify missing translations.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="code-example">
-        <div class="code-example-content">
-          <h2>Simple Integration</h2>
-          <div class="code-tabs">
-            <button 
-              class="tab" 
-              :class="{ active: activeTab === 'ios' }"
-              @click="activeTab = 'ios'"
-            >iOS</button>
-            <button 
-              class="tab" 
-              :class="{ active: activeTab === 'android' }"
-              @click="activeTab = 'android'"
-            >Android</button>
-            <button 
-              class="tab" 
-              :class="{ active: activeTab === 'flutter' }"
-              @click="activeTab = 'flutter'"
-            >Flutter</button>
-          </div>
-          <div class="code-block">
-            <pre><code>{{ codeExamples[activeTab] }}</code></pre>
-          </div>
-        </div>
-      </section>
-    </main>
+    <RouterView />
 
     <footer class="footer">
       <div class="footer-content">
