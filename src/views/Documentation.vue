@@ -1,11 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const activeSection = ref('getting-started')
+const activeSection = ref('home')
 
 const sections = {
-  'getting-started': {
-    title: 'Getting Started',
+  'home': {
+    title: 'Home',
+    content: [
+      {
+        title: 'Welcome to L10n',
+        content: `
+          <p>Welcome to the L10n documentation. Here you'll find everything you need to get started with our localization platform.</p>
+        `
+      }
+    ]
+  },
+  'get-started': {
+    title: 'Get Started',
     content: [
       {
         title: 'Installation',
@@ -35,29 +46,35 @@ L10n.initialize({
       }
     ]
   },
-  'features': {
-    title: 'Features',
+  'overview': {
+    title: 'L10n Overview',
     content: [
       {
-        title: 'Real-time Updates',
+        title: 'Overview',
         content: `
-          <p>Update your translations in real-time without requiring app store submissions.</p>
-          <div class="code-block">
-            <pre><code>// Listen for translation updates
-L10n.onUpdate(() => {
-  // Refresh your UI with new translations
-});</code></pre>
-          </div>
+          <p>L10n is a powerful localization platform that helps you manage translations across your applications.</p>
         `
-      },
+      }
+    ]
+  },
+  'whats-new': {
+    title: "What's New",
+    content: [
       {
-        title: 'Language Fallback',
+        title: 'Latest Updates',
         content: `
-          <p>Intelligent language fallback system ensures users always see content in their preferred language.</p>
-          <div class="code-block">
-            <pre><code>// Set fallback language
-L10n.setFallbackLanguage('en');</code></pre>
-          </div>
+          <p>Stay up to date with the latest features and improvements in L10n.</p>
+        `
+      }
+    ]
+  },
+  'guides': {
+    title: 'Guides',
+    content: [
+      {
+        title: 'Best Practices',
+        content: `
+          <p>Learn the best practices for implementing localization in your applications.</p>
         `
       }
     ]
@@ -92,7 +109,6 @@ const lang = L10n.getLanguage();</code></pre>
 <template>
   <div class="documentation">
     <div class="sidebar">
-      <h2>Documentation</h2>
       <nav>
         <button 
           v-for="(section, key) in sections" 
@@ -128,10 +144,13 @@ const lang = L10n.getLanguage();</code></pre>
 
 .sidebar {
   width: 300px;
-  padding: 2rem;
+  padding: 0 2rem 2rem 0;
   background: var(--background-dark);
   border-right: 1px solid var(--border-color);
   position: fixed;
+  top: 72px;
+  left: 0;
+  margin-left: 0;
   height: calc(100vh - 72px);
   overflow-y: auto;
 }
@@ -145,11 +164,12 @@ const lang = L10n.getLanguage();</code></pre>
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  margin: 0;
 }
 
 .sidebar button {
   text-align: left;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0 0.75rem 1rem;
   background: transparent;
   border: none;
   color: var(--text-light);
@@ -171,7 +191,9 @@ const lang = L10n.getLanguage();</code></pre>
   flex: 1;
   padding: 2rem;
   margin-left: 300px;
-  max-width: 800px;
+  width: calc(100% - 300px);
+  max-width: none;
+  box-sizing: border-box;
 }
 
 .content h1 {
@@ -225,6 +247,8 @@ const lang = L10n.getLanguage();</code></pre>
   .content {
     margin-left: 0;
     padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 </style> 
