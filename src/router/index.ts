@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Documentation from '../views/Documentation.vue'
 import Blog from '../views/Blog.vue'
 import Community from '../views/Community.vue'
+import RoleSelectionView from '../views/RoleSelectionView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
       path: '/community',
       name: 'community',
       component: Community,
+    },
+    {
+      path: '/role-selection',
+      name: 'role-selection',
+      component: RoleSelectionView
     },
   ],
 })

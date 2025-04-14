@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const activeTab = ref('ios')
 
 const codeExamples = {
@@ -37,6 +39,10 @@ await L10n.initialize(
 final greeting = L10n.t('welcome.message');
 print(greeting); // "Welcome to our app!"`
 }
+
+const handleStartLocalizing = () => {
+  router.push('/role-selection')
+}
 </script>
 
 <template>
@@ -50,7 +56,7 @@ print(greeting); // "Welcome to our app!"`
             manage translations, and deliver a perfect user experience across the globe.
           </p>
           <div class="hero-buttons">
-            <button class="primary-button">Start Localizing</button>
+            <button class="primary-button" @click="handleStartLocalizing">Start Localizing</button>
             <button class="secondary-button">View Documentation</button>
           </div>
         </div>

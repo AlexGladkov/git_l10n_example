@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
 // Import the content components
 import HomeContent from '@/components/documentation/HomeContent.vue'
@@ -9,7 +10,33 @@ import WhatsNewContent from '@/components/documentation/WhatsNewContent.vue'
 import GuidesContent from '@/components/documentation/GuidesContent.vue'
 import ApiReferenceContent from '@/components/documentation/ApiReferenceContent.vue'
 
-const activeSection = ref('home')
+const route = useRoute()
+const activeMenuItem = ref('overview')
+
+const menuItems = {
+  overview: 'Overview',
+  gettingStarted: 'Getting Started',
+  guides: 'Guides',
+  api: 'API Reference'
+}
+
+onMounted(() => {
+  const role = route.query.role as string
+  if (role) {
+    switch (role) {
+      case 'cto':
+      case 'developer':
+        activeMenuItem.value = 'gettingStarted'
+        break
+      case 'translator':
+        activeMenuItem.value = 'guides'
+        break
+      case 'other':
+        activeMenuItem.value = 'overview'
+        break
+    }
+  }
+})
 
 // Simplified sections just for the sidebar titles
 const sections = {
@@ -31,31 +58,31 @@ const componentMap = {
   api: ApiReferenceContent,
 }
 
-// Compute the active component based on the activeSection ref
-const activeComponent = computed(() => {
-  return componentMap[activeSection.value] || HomeContent // Fallback to HomeContent
-})
+// Compute the active component based on the activeMenuItem ref
+const activeComponent = ref(componentMap[activeMenuItem.value] || HomeContent)
 </script>
 
 <template>
   <div class="documentation">
-    <div class="sidebar">
+    <div class="documentation-sidebar">
+      <h2>Documentation</h2>
       <nav>
-        <button 
-          v-for="(section, key) in sections" 
-          :key="key"
-          :class="{ active: activeSection === key }"
-          @click="activeSection = key"
-        >
-          {{ section.title }}
-        </button>
+        <ul>
+          <li 
+            v-for="(label, key) in menuItems" 
+            :key="key"
+            :class="{ active: activeMenuItem === key }"
+            @click="activeMenuItem = key"
+          >
+            {{ label }}
+          </li>
+        </ul>
       </nav>
     </div>
-    
-    <div class="content">
-      <h1>{{ sections[activeSection].title }}</h1>
-      
-      <!-- Dynamically render the active component -->
+    <div class="documentation-content">
+      <!-- Content will be dynamically loaded based on activeMenuItem -->
+      <h1>{{ menuItems[activeMenuItem] }}</h1>
+      <!-- Add your content sections here -->
       <component :is="activeComponent" />
     </div>
   </div>
@@ -63,102 +90,62 @@ const activeComponent = computed(() => {
 
 <style scoped>
 .documentation {
-  display: flex;
-  min-height: calc(100vh - 72px);
-  margin-top: 72px;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  min-height: 100vh;
   background: var(--background-darker);
 }
 
-.sidebar {
-  width: 300px;
-  padding: 0 2rem 2rem 0;
-  background: var(--background-dark);
+.documentation-sidebar {
+  background: var(--card-background);
+  padding: 2rem;
   border-right: 1px solid var(--border-color);
-  position: fixed;
-  top: 72px;
-  left: 0;
-  height: calc(100vh - 72px);
-  overflow-y: auto;
 }
 
-.sidebar h2 {
-  margin-bottom: 2rem;
+.documentation-sidebar h2 {
   color: var(--text-color);
+  margin-bottom: 2rem;
+  font-weight: 600;
 }
 
-.sidebar nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.documentation-sidebar nav ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
-.sidebar button {
-  text-align: left;
-  padding: 0.75rem 0 0.75rem 1rem;
-  background: transparent;
-  border: none;
-  color: var(--text-light);
-  cursor: pointer;
+.documentation-sidebar nav li {
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
   border-radius: 6px;
+  cursor: pointer;
+  color: var(--text-light);
   transition: background-color 0.2s ease;
 }
 
-.sidebar button:hover {
+.documentation-sidebar nav li:hover {
   background: rgba(255, 255, 255, 0.05);
 }
 
-.sidebar button.active {
-  background: var(--primary-color);
-  color: white;
+.documentation-sidebar nav li.active {
+  background: var(--accent-color);
+  color: var(--background-darker);
+  font-weight: 500;
 }
 
-.content {
-  margin-left: 300px;
-  flex: 1;
-  padding: 0;
-}
-
-.content h1 {
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
-  padding-left: 16px;
+.documentation-content {
+  padding: 2rem;
   color: var(--text-color);
-  text-align: left;
-}
-
-/* Dynamic component will fill this container */
-.content :deep(> *) {
-  padding: 0 16px;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
   .documentation {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
   
-  .sidebar {
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: auto;
+  .documentation-sidebar {
     border-right: none;
     border-bottom: 1px solid var(--border-color);
-  }
-  
-  .content {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .content h1 {
-    padding: 16px 16px 0 16px;
-  }
-
-  .content :deep(> *) {
-    padding: 0 16px 16px 16px;
   }
 }
 </style> 
