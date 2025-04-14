@@ -127,35 +127,32 @@ console.log(greeting); // "Welcome!"</code></pre>
 </template>
 
 <style scoped>
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .hero,
 .features,
 .code-example {
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background: var(--background-darker);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero {
   min-height: 100vh;
-  display: flex;
-  align-items: center;
   padding-top: 72px;
-}
-
-.hero-inner,
-.features-content,
-.code-example-content {
-  max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 2rem;
-  box-sizing: border-box;
-}
-
-.hero-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+  position: relative;
 }
 
 .hero::before {
@@ -169,8 +166,33 @@ console.log(greeting); // "Welcome!"</code></pre>
   pointer-events: none;
 }
 
+.hero-inner,
+.features-content,
+.code-example-content {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  justify-items: center;
+}
+
 .hero-content {
   max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .hero h1 {
@@ -259,6 +281,9 @@ console.log(greeting); // "Welcome!"</code></pre>
   margin-right: auto;
   padding-left: 2rem;
   padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .features h2 {
@@ -274,6 +299,8 @@ console.log(greeting); // "Welcome!"</code></pre>
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+  width: 100%;
+  justify-items: center;
 }
 
 .feature-card {
@@ -312,10 +339,10 @@ console.log(greeting); // "Welcome!"</code></pre>
 }
 
 .code-example-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
 }
 
 .code-example h2 {
@@ -352,6 +379,7 @@ console.log(greeting); // "Welcome!"</code></pre>
 
 .code-block {
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
   background: var(--code-background);
   padding: 2rem;

@@ -116,6 +116,8 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 .app {
@@ -141,16 +143,19 @@ main {
   height: 72px;
   z-index: 1000;
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
 }
 
 .nav {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 0 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 }
 
 .nav-left .logo {
@@ -197,8 +202,16 @@ main {
 .hero,
 .features,
 .code-example {
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background: var(--background-darker);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero {
@@ -210,13 +223,16 @@ main {
 
 .hero-inner,
 .features-content,
-.code-example-content,
-.nav {
+.code-example-content {
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
   padding: 0 2rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .hero-inner {
@@ -224,6 +240,7 @@ main {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
+  justify-items: center;
 }
 
 .hero::before {
@@ -239,6 +256,9 @@ main {
 
 .hero-content {
   max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero h1 {
@@ -317,8 +337,7 @@ main {
 }
 
 .features {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding: 6rem 0;
 }
 
 .features-content {
@@ -375,8 +394,7 @@ main {
 }
 
 .code-example {
-  padding-top: 6rem;
-  padding-bottom: 6rem;
+  padding: 6rem 0;
 }
 
 .code-example-content {
@@ -436,18 +454,26 @@ main {
 }
 
 .footer {
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   background: var(--background-darker);
   padding: 4rem 0 2rem;
   margin-top: auto;
   border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footer-content {
-  width: 100%;
   max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
   padding: 0 2rem;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 4rem;
@@ -491,13 +517,15 @@ main {
     padding: 6rem 0;
   }
   
+  .hero-content {
+    text-align: center;
+    align-items: center;
+  }
+  
   .hero-inner {
     grid-template-columns: 1fr;
     gap: 2rem;
-  }
-  
-  .hero-content {
-    margin: 0 auto;
+    text-align: center;
   }
   
   .hero h1 {
