@@ -4,6 +4,7 @@ import Documentation from '../views/Documentation.vue'
 import Blog from '../views/Blog.vue'
 import Community from '../views/Community.vue'
 import RoleSelectionView from '../views/RoleSelectionView.vue'
+import Prices from '../views/Prices.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/role-selection',
       name: 'role-selection',
       component: RoleSelectionView
+    },
+    {
+      path: '/prices',
+      name: 'prices',
+      component: Prices
     },
   ],
 })

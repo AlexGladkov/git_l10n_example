@@ -50,6 +50,7 @@ print(greeting); // "Welcome to our app!"`
         </div>
         <div class="nav-right">
           <router-link to="/documentation">Documentation</router-link>
+          <router-link to="/prices">Prices</router-link>
           <router-link to="/blog">Blog</router-link>
           <router-link to="/community">Community</router-link>
           <button class="cta-button">Get Started</button>
