@@ -63,7 +63,7 @@ const activeComponent = ref(componentMap[activeMenuItem.value] || HomeContent)
 </script>
 
 <template>
-  <div class="documentation">
+  <div class="documentation-container">
     <div class="documentation-sidebar">
       <h2>Documentation</h2>
       <nav>
@@ -80,32 +80,52 @@ const activeComponent = ref(componentMap[activeMenuItem.value] || HomeContent)
       </nav>
     </div>
     <div class="documentation-content">
-      <!-- Content will be dynamically loaded based on activeMenuItem -->
       <h1>{{ menuItems[activeMenuItem] }}</h1>
-      <!-- Add your content sections here -->
       <component :is="activeComponent" />
     </div>
   </div>
 </template>
 
 <style scoped>
-.documentation {
-  display: grid;
-  grid-template-columns: 250px 1fr;
+.documentation-container {
+  display: flex;
+  width: 100vw;
   min-height: 100vh;
+  margin-top: 72px;
   background: var(--background-darker);
 }
 
+.documentation-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(19, 185, 253, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .documentation-sidebar {
+  width: 20%;
   background: var(--card-background);
   padding: 2rem;
   border-right: 1px solid var(--border-color);
+  position: fixed;
+  top: 72px;
+  left: 0;
+  height: calc(100vh - 72px);
+  overflow-y: auto;
+  z-index: 1;
 }
 
 .documentation-sidebar h2 {
   color: var(--text-color);
   margin-bottom: 2rem;
   font-weight: 600;
+  font-size: 1.5rem;
+  text-align: left;
 }
 
 .documentation-sidebar nav ul {
@@ -120,7 +140,8 @@ const activeComponent = ref(componentMap[activeMenuItem.value] || HomeContent)
   border-radius: 6px;
   cursor: pointer;
   color: var(--text-light);
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  text-align: left;
 }
 
 .documentation-sidebar nav li:hover {
@@ -134,18 +155,63 @@ const activeComponent = ref(componentMap[activeMenuItem.value] || HomeContent)
 }
 
 .documentation-content {
-  padding: 2rem;
+  width: 80%;
+  margin-left: 20%;
+  padding: 0.5rem 0;
+  padding-left: 0.25rem;
   color: var(--text-color);
+  z-index: 1;
+  text-align: left;
+}
+
+.documentation-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: left;
+}
+
+.documentation-content :deep(*) {
+  text-align: left;
+}
+
+@media (max-width: 1024px) {
+  .documentation-sidebar {
+    width: 25%;
+  }
+  
+  .documentation-content {
+    width: 75%;
+    margin-left: 25%;
+  }
 }
 
 @media (max-width: 768px) {
-  .documentation {
-    grid-template-columns: 1fr;
+  .documentation-container {
+    flex-direction: column;
+    margin-top: 0;
   }
-  
+
   .documentation-sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+    height: auto;
     border-right: none;
     border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem;
+  }
+
+  .documentation-content {
+    width: 100%;
+    margin-left: 0;
+    padding: 0.5rem;
+    padding-left: 0.25rem;
+  }
+
+  .documentation-content h1 {
+    font-size: 2rem;
   }
 }
 </style> 
