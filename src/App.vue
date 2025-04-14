@@ -23,7 +23,7 @@ import HelloWorld from './components/HelloWorld.vue'
     <main>
       <section class="hero">
         <div class="hero-content">
-          <h1>Mobile App Localization Made Simple</h1>
+          <h1>Mobile App Localization<br/>Made Simple</h1>
           <p class="hero-subtitle">
             The ultimate SDK for seamless mobile app localization. Support multiple languages, 
             manage translations, and deliver a perfect user experience across the globe.
@@ -33,24 +33,41 @@ import HelloWorld from './components/HelloWorld.vue'
             <button class="secondary-button">View Documentation</button>
           </div>
         </div>
+        <div class="hero-image">
+          <div class="code-preview">
+            <pre><code>// Initialize the SDK
+L10n.initialize({
+  apiKey: 'your-api-key',
+  defaultLanguage: 'en'
+});
+
+// Use translations
+const greeting = L10n.t('welcome.message');
+console.log(greeting); // "Welcome!"</code></pre>
+          </div>
+        </div>
       </section>
 
       <section id="features" class="features">
         <h2>Why Choose L10n SDK?</h2>
         <div class="feature-grid">
           <div class="feature-card">
+            <div class="feature-icon">📱</div>
             <h3>Multi-platform Support</h3>
             <p>Seamlessly integrate with iOS, Android, and cross-platform frameworks.</p>
           </div>
           <div class="feature-card">
+            <div class="feature-icon">⚡️</div>
             <h3>Real-time Updates</h3>
             <p>Update translations without app store submissions.</p>
           </div>
           <div class="feature-card">
+            <div class="feature-icon">🔄</div>
             <h3>Smart Fallbacks</h3>
             <p>Intelligent language fallback system for better user experience.</p>
           </div>
           <div class="feature-card">
+            <div class="feature-icon">📊</div>
             <h3>Analytics</h3>
             <p>Track translation usage and identify missing translations.</p>
           </div>
@@ -59,9 +76,13 @@ import HelloWorld from './components/HelloWorld.vue'
 
       <section class="code-example">
         <h2>Simple Integration</h2>
+        <div class="code-tabs">
+          <button class="tab active">iOS</button>
+          <button class="tab">Android</button>
+          <button class="tab">Flutter</button>
+        </div>
         <div class="code-block">
-          <pre>
-            <code>// Initialize the SDK
+          <pre><code>// Initialize the SDK
 L10n.initialize({
   apiKey: 'your-api-key',
   defaultLanguage: 'en'
@@ -69,8 +90,7 @@ L10n.initialize({
 
 // Use translations
 const greeting = L10n.t('welcome.message');
-console.log(greeting); // "Welcome to our app!"</code>
-          </pre>
+console.log(greeting); // "Welcome to our app!"</code></pre>
         </div>
       </section>
     </main>
@@ -103,13 +123,18 @@ console.log(greeting); // "Welcome to our app!"</code>
 
 <style>
 :root {
-  --primary-color: #7F52FF;
-  --secondary-color: #6B46C1;
-  --text-color: #2D3748;
-  --light-text: #718096;
-  --background: #FFFFFF;
-  --light-background: #F7FAFC;
-  --border-color: #E2E8F0;
+  /* Flutter.dev dark theme colors */
+  --primary-color: #0553B1;
+  --primary-light: #027DFD;
+  --accent-color: #13B9FD;
+  --background-dark: #1C2834;
+  --background-darker: #152030;
+  --text-color: #FFFFFF;
+  --text-light: rgba(255, 255, 255, 0.8);
+  --text-lighter: rgba(255, 255, 255, 0.6);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --card-background: rgba(255, 255, 255, 0.05);
+  --code-background: #0D1117;
 }
 
 * {
@@ -119,9 +144,10 @@ console.log(greeting); // "Welcome to our app!"</code>
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Google Sans', 'Roboto', sans-serif;
   color: var(--text-color);
   line-height: 1.5;
+  background: var(--background-dark);
 }
 
 .app {
@@ -131,12 +157,13 @@ body {
 }
 
 .header {
-  background: var(--background);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: var(--background-darker);
+  box-shadow: 0 1px 0 var(--border-color);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
+  backdrop-filter: blur(10px);
 }
 
 .nav {
@@ -151,8 +178,9 @@ body {
 .nav-left .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--accent-color);
   text-decoration: none;
+  letter-spacing: -0.5px;
 }
 
 .nav-right {
@@ -162,79 +190,135 @@ body {
 }
 
 .nav-right a {
-  color: var(--text-color);
+  color: var(--text-light);
   text-decoration: none;
   font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-right a:hover {
+  color: var(--accent-color);
 }
 
 .cta-button {
-  background: var(--primary-color);
-  color: white;
+  background: var(--accent-color);
+  color: var(--background-darker);
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(19, 185, 253, 0.3);
 }
 
 .hero {
-  background: var(--light-background);
-  padding: 8rem 2rem 4rem;
-  text-align: center;
-}
-
-.hero-content {
-  max-width: 800px;
+  background: var(--background-darker);
+  padding: 10rem 2rem 6rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
+.hero-content {
+  text-align: left;
+}
+
 .hero h1 {
-  font-size: 3rem;
+  font-size: 4rem;
+  line-height: 1.1;
   margin-bottom: 1.5rem;
   color: var(--text-color);
+  font-weight: 700;
+  letter-spacing: -1px;
 }
 
 .hero-subtitle {
   font-size: 1.25rem;
-  color: var(--light-text);
+  color: var(--text-light);
   margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
 .hero-buttons {
   display: flex;
   gap: 1rem;
-  justify-content: center;
 }
 
 .primary-button, .secondary-button {
   padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  font-weight: 500;
+  border-radius: 50px;
+  font-weight: 600;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .primary-button {
-  background: var(--primary-color);
-  color: white;
+  background: var(--accent-color);
+  color: var(--background-darker);
   border: none;
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(19, 185, 253, 0.3);
 }
 
 .secondary-button {
   background: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+}
+
+.secondary-button:hover {
+  background: rgba(19, 185, 253, 0.1);
+}
+
+.hero-image {
+  position: relative;
+}
+
+.code-preview {
+  background: var(--code-background);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.code-preview::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .features {
-  padding: 4rem 2rem;
+  padding: 6rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  background: var(--background-dark);
 }
 
 .features h2 {
   text-align: center;
-  font-size: 2.25rem;
-  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
+  color: var(--text-color);
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .feature-grid {
@@ -244,52 +328,93 @@ body {
 }
 
 .feature-card {
-  background: var(--background);
+  background: var(--card-background);
   padding: 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 .feature-card h3 {
   margin-bottom: 1rem;
   color: var(--text-color);
+  font-weight: 600;
 }
 
 .feature-card p {
-  color: var(--light-text);
+  color: var(--text-light);
+  line-height: 1.6;
 }
 
 .code-example {
-  background: var(--light-background);
-  padding: 4rem 2rem;
+  background: var(--background-darker);
+  padding: 6rem 2rem;
 }
 
 .code-example h2 {
   text-align: center;
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   margin-bottom: 2rem;
+  color: var(--text-color);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.code-tabs {
+  max-width: 800px;
+  margin: 0 auto 1rem;
+  display: flex;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  color: var(--accent-color);
+  border-bottom-color: var(--accent-color);
 }
 
 .code-block {
   max-width: 800px;
   margin: 0 auto;
-  background: #1E1E1E;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
+  background: var(--code-background);
+  padding: 2rem;
+  border-radius: 12px;
   overflow-x: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .code-block pre {
-  color: #D4D4D4;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  color: var(--text-color);
+  font-family: 'JetBrains Mono', 'Monaco', monospace;
   font-size: 0.875rem;
   line-height: 1.5;
 }
 
 .footer {
-  background: var(--background);
+  background: var(--background-darker);
   padding: 4rem 2rem 2rem;
   margin-top: auto;
+  border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
@@ -297,19 +422,25 @@ body {
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
+  gap: 4rem;
 }
 
 .footer-section h4 {
   margin-bottom: 1rem;
   color: var(--text-color);
+  font-weight: 600;
 }
 
 .footer-section a {
   display: block;
-  color: var(--light-text);
+  color: var(--text-light);
   text-decoration: none;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s ease;
+}
+
+.footer-section a:hover {
+  color: var(--accent-color);
 }
 
 .footer-bottom {
@@ -318,7 +449,7 @@ body {
   padding-top: 2rem;
   border-top: 1px solid var(--border-color);
   text-align: center;
-  color: var(--light-text);
+  color: var(--text-lighter);
 }
 
 @media (max-width: 768px) {
@@ -326,12 +457,26 @@ body {
     display: none;
   }
   
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 8rem 1rem 4rem;
+  }
+  
+  .hero-content {
+    text-align: center;
+  }
+  
   .hero h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
   
   .hero-buttons {
-    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
