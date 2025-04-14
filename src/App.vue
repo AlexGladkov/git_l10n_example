@@ -1,6 +1,44 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue'
+
+const activeTab = ref('ios')
+
+const codeExamples = {
+  ios: `// Initialize the SDK
+L10n.initialize({
+  apiKey: 'your-api-key',
+  defaultLanguage: 'en'
+});
+
+// Use translations
+let greeting = L10n.t("welcome.message")
+print(greeting) // "Welcome to our app!"`,
+  
+  android: `// Initialize the SDK
+L10n.initialize(
+  context,
+  L10nConfig.Builder()
+    .setApiKey("your-api-key")
+    .setDefaultLanguage("en")
+    .build()
+);
+
+// Use translations
+val greeting = L10n.t("welcome.message")
+println(greeting) // "Welcome to our app!"`,
+  
+  flutter: `// Initialize the SDK
+await L10n.initialize(
+  apiKey: 'your-api-key',
+  defaultLanguage: 'en',
+);
+
+// Use translations
+final greeting = L10n.t('welcome.message');
+print(greeting); // "Welcome to our app!"`
+}
 </script>
 
 <template>
@@ -82,20 +120,24 @@ console.log(greeting); // "Welcome!"</code></pre>
         <div class="code-example-content">
           <h2>Simple Integration</h2>
           <div class="code-tabs">
-            <button class="tab active">iOS</button>
-            <button class="tab">Android</button>
-            <button class="tab">Flutter</button>
+            <button 
+              class="tab" 
+              :class="{ active: activeTab === 'ios' }"
+              @click="activeTab = 'ios'"
+            >iOS</button>
+            <button 
+              class="tab" 
+              :class="{ active: activeTab === 'android' }"
+              @click="activeTab = 'android'"
+            >Android</button>
+            <button 
+              class="tab" 
+              :class="{ active: activeTab === 'flutter' }"
+              @click="activeTab = 'flutter'"
+            >Flutter</button>
           </div>
           <div class="code-block">
-            <pre><code>// Initialize the SDK
-L10n.initialize({
-  apiKey: 'your-api-key',
-  defaultLanguage: 'en'
-});
-
-// Use translations
-const greeting = L10n.t('welcome.message');
-console.log(greeting); // "Welcome to our app!"</code></pre>
+            <pre><code>{{ codeExamples[activeTab] }}</code></pre>
           </div>
         </div>
       </section>
