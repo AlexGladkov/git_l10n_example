@@ -1,109 +1,40 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+
+// Import the content components
+import HomeContent from '@/components/documentation/HomeContent.vue'
+import GetStartedContent from '@/components/documentation/GetStartedContent.vue'
+import OverviewContent from '@/components/documentation/OverviewContent.vue'
+import WhatsNewContent from '@/components/documentation/WhatsNewContent.vue'
+import GuidesContent from '@/components/documentation/GuidesContent.vue'
+import ApiReferenceContent from '@/components/documentation/ApiReferenceContent.vue'
 
 const activeSection = ref('home')
 
+// Simplified sections just for the sidebar titles
 const sections = {
-  'home': {
-    title: 'Home',
-    content: [
-      {
-        title: 'Welcome to L10n',
-        content: `
-          <p>Welcome to the L10n documentation. Here you'll find everything you need to get started with our localization platform.</p>
-        `
-      }
-    ]
-  },
-  'get-started': {
-    title: 'Get Started',
-    content: [
-      {
-        title: 'Installation',
-        content: `
-          <p>Install the L10n SDK using your preferred package manager:</p>
-          <div class="code-block">
-            <pre><code>npm install @l10n/sdk
-# or
-yarn add @l10n/sdk
-# or
-pod install # for iOS</code></pre>
-          </div>
-        `
-      },
-      {
-        title: 'Initialization',
-        content: `
-          <p>Initialize the SDK in your application:</p>
-          <div class="code-block">
-            <pre><code>// Initialize the SDK
-L10n.initialize({
-  apiKey: 'your-api-key',
-  defaultLanguage: 'en'
-});</code></pre>
-          </div>
-        `
-      }
-    ]
-  },
-  'overview': {
-    title: 'L10n Overview',
-    content: [
-      {
-        title: 'Overview',
-        content: `
-          <p>L10n is a powerful localization platform that helps you manage translations across your applications.</p>
-        `
-      }
-    ]
-  },
-  'whats-new': {
-    title: "What's New",
-    content: [
-      {
-        title: 'Latest Updates',
-        content: `
-          <p>Stay up to date with the latest features and improvements in L10n.</p>
-        `
-      }
-    ]
-  },
-  'guides': {
-    title: 'Guides',
-    content: [
-      {
-        title: 'Best Practices',
-        content: `
-          <p>Learn the best practices for implementing localization in your applications.</p>
-        `
-      }
-    ]
-  },
-  'api': {
-    title: 'API Reference',
-    content: [
-      {
-        title: 'Core Methods',
-        content: `
-          <p>Main methods for working with translations:</p>
-          <div class="code-block">
-            <pre><code>// Get translation
-const text = L10n.t('key');
-
-// Get translation with parameters
-const text = L10n.t('key', { name: 'John' });
-
-// Change language
-L10n.setLanguage('es');
-
-// Get current language
-const lang = L10n.getLanguage();</code></pre>
-          </div>
-        `
-      }
-    ]
-  }
+  'home': { title: 'Home' },
+  'get-started': { title: 'Get Started' },
+  'overview': { title: 'L10n Overview' },
+  'whats-new': { title: "What's New" },
+  'guides': { title: 'Guides' },
+  'api': { title: 'API Reference' },
 }
+
+// Map section keys to their components
+const componentMap = {
+  home: HomeContent,
+  'get-started': GetStartedContent,
+  overview: OverviewContent,
+  'whats-new': WhatsNewContent,
+  guides: GuidesContent,
+  api: ApiReferenceContent,
+}
+
+// Compute the active component based on the activeSection ref
+const activeComponent = computed(() => {
+  return componentMap[activeSection.value] || HomeContent // Fallback to HomeContent
+})
 </script>
 
 <template>
@@ -124,12 +55,8 @@ const lang = L10n.getLanguage();</code></pre>
     <div class="content">
       <h1>{{ sections[activeSection].title }}</h1>
       
-      <div v-for="(item, index) in sections[activeSection].content" 
-           :key="index" 
-           class="section-content">
-        <h2>{{ item.title }}</h2>
-        <div v-html="item.content"></div>
-      </div>
+      <!-- Dynamically render the active component -->
+      <component :is="activeComponent" />
     </div>
   </div>
 </template>
@@ -150,7 +77,6 @@ const lang = L10n.getLanguage();</code></pre>
   position: fixed;
   top: 72px;
   left: 0;
-  margin-left: 0;
   height: calc(100vh - 72px);
   overflow-y: auto;
 }
@@ -188,47 +114,24 @@ const lang = L10n.getLanguage();</code></pre>
 }
 
 .content {
-  flex: 1;
-  padding: 2rem;
   margin-left: 300px;
-  width: calc(100% - 300px);
-  max-width: none;
-  box-sizing: border-box;
+  flex: 1;
+  padding: 0;
 }
 
 .content h1 {
   font-size: 2.5rem;
   margin-bottom: 2rem;
+  padding-left: 16px;
   color: var(--text-color);
+  text-align: left;
 }
 
-.section-content {
-  margin-bottom: 3rem;
-}
-
-.section-content h2 {
-  font-size: 1.75rem;
-  margin-bottom: 1.5rem;
-  color: var(--text-color);
-}
-
-:deep(.code-block) {
-  background: var(--code-background);
-  padding: 1rem;
-  border-radius: 6px;
-  margin: 1rem 0;
-  overflow-x: auto;
-}
-
-:deep(pre) {
-  margin: 0;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-:deep(code) {
-  color: var(--text-color);
+/* Dynamic component will fill this container */
+.content :deep(> *) {
+  padding: 0 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (max-width: 768px) {
@@ -237,8 +140,9 @@ const lang = L10n.getLanguage();</code></pre>
   }
   
   .sidebar {
-    width: 100%;
     position: relative;
+    top: 0;
+    width: 100%;
     height: auto;
     border-right: none;
     border-bottom: 1px solid var(--border-color);
@@ -246,9 +150,15 @@ const lang = L10n.getLanguage();</code></pre>
   
   .content {
     margin-left: 0;
-    padding: 1rem;
     width: 100%;
-    box-sizing: border-box;
+  }
+
+  .content h1 {
+    padding: 16px 16px 0 16px;
+  }
+
+  .content :deep(> *) {
+    padding: 0 16px 16px 16px;
   }
 }
 </style> 
