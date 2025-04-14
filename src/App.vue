@@ -49,40 +49,43 @@ console.log(greeting); // "Welcome!"</code></pre>
       </section>
 
       <section id="features" class="features">
-        <h2>Why Choose L10n SDK?</h2>
-        <div class="feature-grid">
-          <div class="feature-card">
-            <div class="feature-icon">📱</div>
-            <h3>Multi-platform Support</h3>
-            <p>Seamlessly integrate with iOS, Android, and cross-platform frameworks.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">⚡️</div>
-            <h3>Real-time Updates</h3>
-            <p>Update translations without app store submissions.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">🔄</div>
-            <h3>Smart Fallbacks</h3>
-            <p>Intelligent language fallback system for better user experience.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon">📊</div>
-            <h3>Analytics</h3>
-            <p>Track translation usage and identify missing translations.</p>
+        <div class="features-content">
+          <h2>Why Choose L10n SDK?</h2>
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon">📱</div>
+              <h3>Multi-platform Support</h3>
+              <p>Seamlessly integrate with iOS, Android, and cross-platform frameworks.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">⚡️</div>
+              <h3>Real-time Updates</h3>
+              <p>Update translations without app store submissions.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">🔄</div>
+              <h3>Smart Fallbacks</h3>
+              <p>Intelligent language fallback system for better user experience.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-icon">📊</div>
+              <h3>Analytics</h3>
+              <p>Track translation usage and identify missing translations.</p>
+            </div>
           </div>
         </div>
       </section>
 
       <section class="code-example">
-        <h2>Simple Integration</h2>
-        <div class="code-tabs">
-          <button class="tab active">iOS</button>
-          <button class="tab">Android</button>
-          <button class="tab">Flutter</button>
-        </div>
-        <div class="code-block">
-          <pre><code>// Initialize the SDK
+        <div class="code-example-content">
+          <h2>Simple Integration</h2>
+          <div class="code-tabs">
+            <button class="tab active">iOS</button>
+            <button class="tab">Android</button>
+            <button class="tab">Flutter</button>
+          </div>
+          <div class="code-block">
+            <pre><code>// Initialize the SDK
 L10n.initialize({
   apiKey: 'your-api-key',
   defaultLanguage: 'en'
@@ -91,6 +94,7 @@ L10n.initialize({
 // Use translations
 const greeting = L10n.t('welcome.message');
 console.log(greeting); // "Welcome to our app!"</code></pre>
+          </div>
         </div>
       </section>
     </main>
@@ -223,12 +227,27 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(19, 185, 253, 0.05) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .hero-content {
   text-align: left;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: 2rem;
 }
 
 .hero h1 {
@@ -282,7 +301,8 @@ body {
 }
 
 .hero-image {
-  position: relative;
+  max-width: 600px;
+  margin-left: 2rem;
 }
 
 .code-preview {
@@ -307,9 +327,26 @@ body {
 
 .features {
   padding: 6rem 2rem;
+  width: 100%;
+  background: var(--background-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.features::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(19, 185, 253, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.features-content {
   max-width: 1200px;
   margin: 0 auto;
-  background: var(--background-dark);
 }
 
 .features h2 {
@@ -359,6 +396,25 @@ body {
 .code-example {
   background: var(--background-darker);
   padding: 6rem 2rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.code-example::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 70% 50%, rgba(19, 185, 253, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.code-example-content {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .code-example h2 {
@@ -465,6 +521,12 @@ body {
   
   .hero-content {
     text-align: center;
+    margin: 0 auto;
+  }
+  
+  .hero-image {
+    margin: 0 auto;
+    max-width: 100%;
   }
   
   .hero h1 {
