@@ -22,20 +22,21 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <main>
       <section class="hero">
-        <div class="hero-content">
-          <h1>Mobile App Localization<br/>Made Simple</h1>
-          <p class="hero-subtitle">
-            The ultimate SDK for seamless mobile app localization. Support multiple languages, 
-            manage translations, and deliver a perfect user experience across the globe.
-          </p>
-          <div class="hero-buttons">
-            <button class="primary-button">Start Localizing</button>
-            <button class="secondary-button">View Documentation</button>
+        <div class="hero-inner">
+          <div class="hero-content">
+            <h1>Mobile App Localization<br/>Made Simple</h1>
+            <p class="hero-subtitle">
+              The ultimate SDK for seamless mobile app localization. Support multiple languages, 
+              manage translations, and deliver a perfect user experience across the globe.
+            </p>
+            <div class="hero-buttons">
+              <button class="primary-button">Start Localizing</button>
+              <button class="secondary-button">View Documentation</button>
+            </div>
           </div>
-        </div>
-        <div class="hero-image">
-          <div class="code-preview">
-            <pre><code>// Initialize the SDK
+          <div class="hero-image">
+            <div class="code-preview">
+              <pre><code>// Initialize the SDK
 L10n.initialize({
   apiKey: 'your-api-key',
   defaultLanguage: 'en'
@@ -44,6 +45,7 @@ L10n.initialize({
 // Use translations
 const greeting = L10n.t('welcome.message');
 console.log(greeting); // "Welcome!"</code></pre>
+            </div>
           </div>
         </div>
       </section>
@@ -151,13 +153,23 @@ body {
   font-family: 'Google Sans', 'Roboto', sans-serif;
   color: var(--text-color);
   line-height: 1.5;
-  background: var(--background-dark);
+  background: var(--background-darker);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .header {
@@ -166,12 +178,15 @@ body {
   position: fixed;
   width: 100%;
   top: 0;
+  left: 0;
+  height: 72px;
   z-index: 1000;
   backdrop-filter: blur(10px);
 }
 
 .nav {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 1rem 2rem;
   display: flex;
@@ -220,16 +235,36 @@ body {
   box-shadow: 0 4px 12px rgba(19, 185, 253, 0.3);
 }
 
-.hero {
+.hero,
+.features,
+.code-example {
+  width: 100%;
   background: var(--background-darker);
-  padding: 10rem 2rem 6rem;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 72px;
+}
+
+.hero-inner,
+.features-content,
+.code-example-content,
+.nav {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.hero-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
 }
 
 .hero::before {
@@ -244,19 +279,16 @@ body {
 }
 
 .hero-content {
-  text-align: left;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: 2rem;
 }
 
 .hero h1 {
-  font-size: 4rem;
+  font-size: 5rem;
   line-height: 1.1;
   margin-bottom: 1.5rem;
   color: var(--text-color);
   font-weight: 700;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
 }
 
 .hero-subtitle {
@@ -301,11 +333,11 @@ body {
 }
 
 .hero-image {
-  max-width: 600px;
-  margin-left: 2rem;
+  width: 100%;
 }
 
 .code-preview {
+  width: 100%;
   background: var(--code-background);
   padding: 2rem;
   border-radius: 12px;
@@ -326,27 +358,16 @@ body {
 }
 
 .features {
-  padding: 6rem 2rem;
-  width: 100%;
-  background: var(--background-dark);
-  position: relative;
-  overflow: hidden;
-}
-
-.features::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 30% 50%, rgba(19, 185, 253, 0.03) 0%, transparent 70%);
-  pointer-events: none;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 .features-content {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: min(1400px, 100%);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .features h2 {
@@ -360,7 +381,7 @@ body {
 
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 }
 
@@ -370,6 +391,7 @@ body {
   border-radius: 12px;
   border: 1px solid var(--border-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
 }
 
 .feature-card:hover {
@@ -394,27 +416,15 @@ body {
 }
 
 .code-example {
-  background: var(--background-darker);
-  padding: 6rem 2rem;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-
-.code-example::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 70% 50%, rgba(19, 185, 253, 0.03) 0%, transparent 70%);
-  pointer-events: none;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
 }
 
 .code-example-content {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .code-example h2 {
@@ -467,15 +477,18 @@ body {
 }
 
 .footer {
+  width: 100%;
   background: var(--background-darker);
-  padding: 4rem 2rem 2rem;
+  padding: 4rem 0 2rem;
   margin-top: auto;
   border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 0 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 4rem;
@@ -500,9 +513,10 @@ body {
 }
 
 .footer-bottom {
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1400px;
   margin: 2rem auto 0;
-  padding-top: 2rem;
+  padding: 2rem 2rem 0;
   border-top: 1px solid var(--border-color);
   text-align: center;
   color: var(--text-lighter);
@@ -514,23 +528,29 @@ body {
   }
   
   .hero {
+    min-height: auto;
+    padding: 6rem 0;
+  }
+  
+  .hero-inner {
     grid-template-columns: 1fr;
-    text-align: center;
-    padding: 8rem 1rem 4rem;
+    gap: 2rem;
   }
   
   .hero-content {
-    text-align: center;
     margin: 0 auto;
-  }
-  
-  .hero-image {
-    margin: 0 auto;
-    max-width: 100%;
   }
   
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
+  }
+  
+  .hero-image {
+    max-width: 100%;
+  }
+  
+  .code-preview {
+    width: 100%;
   }
   
   .hero-buttons {
@@ -539,6 +559,11 @@ body {
   
   .feature-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .features,
+  .code-example {
+    padding: 4rem 0;
   }
 }
 </style>
